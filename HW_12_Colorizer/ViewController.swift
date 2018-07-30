@@ -10,16 +10,44 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var countdownLabel: UILabel!
+    var timer: Timer?
+    var counter = 5
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = .gray
+        countdownLabel.isHidden = true
+        countdownUpdateText()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        timerRemoved()
+        counter = 5
+        countdownUpdateText()
+        countdownLabel.isHidden = false
+        view.backgroundColor = sender.backgroundColor
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countdownHandling), userInfo: nil, repeats: true)
     }
 
+    func countdownUpdateText() {
+        countdownLabel.text = "Countdown is: \(counter)"
+    }
 
+    @objc func countdownHandling() {
+        counter -= 1
+        countdownUpdateText()
+        if counter == 0 {
+            view.backgroundColor = .gray
+            countdownLabel.isHidden = true
+            timerRemoved()
+            counter = 5
+        }
+    }
+
+    func timerRemoved() {
+        timer?.invalidate()
+        timer = nil
+    }
 }
 
