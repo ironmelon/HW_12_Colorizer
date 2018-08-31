@@ -16,7 +16,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        updatedDefaultBackgoundColor()
         countdownLabel.isHidden = true
         countdownUpdateText()
     }
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         counter -= 1
         countdownUpdateText()
         if counter == 0 {
-            view.backgroundColor = .gray
+            updatedDefaultBackgoundColor()
             countdownLabel.isHidden = true
             timerRemoved()
             counter = 5
@@ -48,6 +48,10 @@ class ViewController: UIViewController {
     func timerRemoved() {
         timer?.invalidate()
         timer = nil
+    }
+
+    func updatedDefaultBackgoundColor() {
+        view.backgroundColor = .gray
     }
 }
 
